@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VidalBuild - Calculadora de materiales</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #111;
+    margin: 0; padding: 0;
+  }
+  header {
+    background: #000;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  section {
+    background: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+  section h2 {
+    border-bottom: 2px solid #000;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  label {
+    display: block;
+    margin-top: 1rem;
+  }
+  input[type="number"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.25rem;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+  }
+  button {
+    margin-top: 1.5rem;
+    padding: 0.7rem 1.2rem;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #222;
+  }
+  .result {
+    margin-top: 1.5rem;
+    background: #000;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 6px;
+  }
+  .providers {
+    background: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+  .providers h2 {
+    border-bottom: 2px solid #000;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  ul.providers-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  ul.providers-list li {
+    margin-bottom: 0.7rem;
+  }
+  ul.providers-list a {
+    color: #000;
+    text-decoration: none;
+  }
+  ul.providers-list a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+<header>🏗️ VidalBuild - Calculadora de materiales</header>
+<main>
+
+  <section id="losa-section">
+    <h2>Losa de hormigón</h2>
+    <form id="losaForm">
+      <label for="losa-length">Largo (m):</label>
+      <input type="number" id="losa-length" name="length" min="0" step="0.01" required />
+      
+      <label for="losa-width">Ancho (m):</label>
+      <input type="number" id="losa-width" name="width" min="0" step="0.01" required />
+      
+      <label for="losa-thickness">Espesor (m):</label>
+      <input type="number" id="losa-thickness" name="thickness" min="0" step="0.01" required />
+      
+      <button type="submit">Calcular</button>
+    </form>
+    <div class="result" id="losaResult" style="display:none;"></div>
+  </section>
+
+  <section id="muro-section">
+    <h2>Muro de ladrillos</h2>
+    <form id="muroForm">
+      <label for="muro-length">Largo (m):</label>
+      <input type="number" id="muro-length" name="length" min="0" step="0.01" required />
+      
+      <label for="muro-height">Alto (m):</label>
+      <input type="number" id="muro-height" name="height" min="0" step="0.01" required />
+      
+      <label for="muro-thickness">Espesor (m):</label>
+      <input type="number" id="muro-thickness" name="thickness" min="0" step="0.01" required />
+      
+      <button type="submit">Calcular</button>
+    </form>
+    <div class="result" id="muroResult" style="display:none;"></div>
+  </section>
+
+  <section id="radier-section">
+    <h2>Radier</h2>
+    <form id="radierForm">
+      <label for="radier-length">Largo (m):</label>
+      <input type="number" id="radier-length" name="length" min="0" step="0.01" required />
+      
+      <label for="radier-width">Ancho (m):</label>
+      <input type="number" id="radier-width" name="width" min="0" step="0.01" required />
+      
+      <label for="radier-thickness">Espesor (m):</label>
+      <input type="number" id="radier-thickness" name="thickness" min="0" step="0.01" required />
+      
+      <button type="submit">Calcular</button>
+    </form>
+    <div class="result" id="radierResult" style="display:none;"></div>
+  </section>
+
+  <section id="revoque-section">
+    <h2>Revoque (enlucido de paredes)</h2>
+    <form id="revoqueForm">
+      <label for="revoque-length">Largo (m):</label>
+      <input type="number" id="revoque-length" name="length" min="0" step="0.01" required />
+      
+      <label for="revoque-height">Alto (m):</label>
+      <input type="number" id="revoque-height" name="height" min="0" step="0.01" required />
+      
+      <label for="revoque-thickness">Espesor (m):</label>
+      <input type="number" id="revoque-thickness" name="thickness" min="0" step="0.001" required />
+      
+      <button type="submit">Calcular</button>
+    </form>
+    <div class="result" id="revoqueResult" style="display:none;"></div>
+  </section>
+
+  <section class="providers">
+    <h2>Dónde comprar materiales</h2>
+    <ul class="providers-list">
+      <li><a href="https://www.sodimac.cl" target="_blank" rel="noopener noreferrer">Sodimac</a> - Materiales de construcción</li>
+      <li><a href="https://www.easy.cl" target="_blank" rel="noopener noreferrer">Easy</a> - Todo para construcción y hogar</li>
+      <li><a href="https://www.construmart.cl" target="_blank" rel="noopener noreferrer">Construmart</a> - Materiales y herramientas</li>
+      <li><a href="https://www.maestro.cl" target="_blank" rel="noopener noreferrer">Maestro</a> - Tienda de construcción</li>
+      <li><a href="https://www.lider.cl" target="_blank" rel="noopener noreferrer">Lider</a> - Materiales básicos</li>
+    </ul>
+  </section>
+
+</main>
+
+<script>
+  // Losa de hormigón
+  document.getElementById('losaForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const length = parseFloat(document.getElementById('losa-length').value);
+    const width = parseFloat(document.getElementById('losa-width').value);
+    const thickness = parseFloat(document.getElementById('losa-thickness').value);
+
+    const volume = length * width * thickness;
+    const cementoKg = volume * 300;
+    const arenaM3 = volume * 0.5;
+    const ripioM3 = volume * 0.75;
+    const aguaLitros = volume * 150;
+
+    const resultDiv = document.getElementById('losaResult');
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = `
+      <strong>Volumen total:</strong> ${volume.toFixed(2)} m³<br/>
+      <strong>Cemento:</strong> ${cementoKg.toFixed(1)} kg<br/>
+      <strong>Arena:</strong> ${arenaM3.toFixed(2)} m³<br/>
+      <strong>Ripio:</strong> ${ripioM3.toFixed(2)} m³<br/>
+      <strong>Agua:</strong> ${aguaLitros.toFixed(1)} litros
+    `;
+  });
+
+  // Muro de ladrillos
+  document.getElementById('muroForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const length = parseFloat(document.getElementById('muro-length').value);
+    const height = parseFloat(document.getElementById('muro-height').value);
+    const thickness = parseFloat(document.getElementById('muro-thickness').value);
+
+    const area = length * height;
+    // Considerando ladrillo estándar 0.24m x 0.115m, aprox 35 ladrillos/m2
+    const ladrillos = area * 35;
+    // Mortero 0.05 m3 por cada 10 m2
+    const morteroM3 = area * 0.005;
+
+    const resultDiv = document.getElementById('muroResult');
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = `
+      <strong>Área total del muro:</strong> ${area.toFixed(2)} m²<br/>
+      <strong>Número de ladrillos:</strong> ${ladrillos.toFixed(0)} unidades<br/>
+      <strong>Mortero estimado:</strong> ${morteroM3.toFixed(2)} m³
+    `;
+  });
+
+  // Radier
+  document.getElementById('radierForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const length = parseFloat(document.getElementById('radier-length').value);
+    const width = parseFloat(document.getElementById('radier-width').value);
+    const thickness = parseFloat(document.getElementById('radier-thickness').value);
+
+    const volume = length * width * thickness;
+    const cementoKg = volume * 320;
+    const arenaM3 = volume * 0.5;
+    const ripioM3 = volume * 0.7;
+    const aguaLitros = volume * 160;
+
+    const resultDiv = document.getElementById('radierResult');
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = `
+      <strong>Volumen total:</strong> ${volume.toFixed(2)} m³<br/>
+      <strong>Cemento:</strong> ${cementoKg.toFixed(1)} kg<br/>
+      <strong>Arena:</strong> ${arenaM3.toFixed(2)} m³<br/>
+      <strong>Ripio:</strong> ${ripioM3.toFixed(2)} m³<br/>
+      <strong>Agua:</strong> ${aguaLitros.toFixed(1)} litros
+    `;
+  });
+
+  // Revoque
+  document.getElementById('revoqueForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const length = parseFloat(document.getElementById('revoque-length').value);
+    const height = parseFloat(document.getElementById('revoque-height').value);
+    const thickness = parseFloat(document.getElementById('revoque-thickness').value);
+
+    const area = length * height;
+    const volume = area * thickness;
+
+    // Mezcla para revoque (cemento + arena) por m3: aprox 1800 kg/m3
+    const mezclaKg = volume * 1800;
+
+    const resultDiv = document.getElementById('revoqueResult');
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = `
+      <strong>Área total:</strong> ${area.toFixed(2)} m²<br/>
+      <strong>Volumen de mezcla:</strong> ${volume.toFixed(3)} m³<br/>
+      <strong>Mezcla necesaria:</strong> ${mezclaKg.toFixed(0)} kg
+    `;
+  });
+</script>
+</body>
+</html>
